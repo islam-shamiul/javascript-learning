@@ -2,7 +2,6 @@
 
 // Data needed for a later exercise
 
-
 // Data needed for first part of the section
 
 const restaurant = {
@@ -11,9 +10,9 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  order: function(starterIndex,mainMenuIndex){
-    return[this.starterMenu[starterIndex],this.mainMenu[mainMenuIndex]];
-  },  
+  order: function (starterIndex, mainMenuIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainMenuIndex]];
+  },
   openingHours: {
     thu: {
       open: 12,
@@ -28,18 +27,59 @@ const restaurant = {
       close: 24,
     },
   },
-  orderDelivery: function({starterIndex=1,mainMenuIndex=2,time='22:00',address,})
-  {
-      console.log(`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainMenuIndex]} will be delivered to ${address} at ${time}`);
+  orderDelivery: function ({
+    starterIndex = 1,
+    mainMenuIndex = 2,
+    time = '22:00',
+    address,
+  }) {
+    console.log(
+      `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainMenuIndex]} will be delivered to ${address} at ${time}`
+    );
   },
-  orderPasta: function(inc1,inc2,inc3)
-  {
-    console.log(`here is your pasta with ${inc1}, ${inc2} and ${inc3}`)
-  }
-  
+  orderPasta: function (inc1, inc2, inc3) {
+    console.log(`here is your pasta with ${inc1}, ${inc2} and ${inc3}`);
+  },
+  orderPizza: function (mainIngredient, ...otherIngredient) {
+    console.log(mainIngredient);
+    console.log(otherIngredient);
+  },
 };
 
-restaurant.orderDelivery({
+//1.destucturing
+
+//rest, because on the left side of assignment oparator(array)
+
+const [a, b, ...other] = [1, 2, 3, 4, 5, 6];
+console.log(a, b, other);
+
+const [pizza, , risotto, ...otherFoods] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, risotto, otherFoods);
+
+//rest in objects
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+//2.Functions
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+};
+add(2, 3);
+add(2, 6, 8, 7, 7);
+add(8, 9, 7, 4, 6, 8, 7, 4);
+
+const x = [23, 5, 7];
+add(...x);
+
+restaurant.orderPizza('mushrooms', 'olives', 'spinach', 'onions');
+/*restaurant.orderDelivery({
   starterIndex:1,
   mainMenuIndex:0,
   address:'home',
@@ -111,7 +151,7 @@ restaurantCopy.name = 'nana miya';
 console.log(restaurantCopy.name);
 console.log(restaurant.name);
 
-/*
+
 //destructing array
 const arr = [2,3,4];
 const a =  arr[0];
