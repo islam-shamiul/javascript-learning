@@ -4,7 +4,7 @@
 
 // Data needed for first part of the section
 
-const restaurant = {
+/*const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
@@ -70,6 +70,11 @@ if (restaurant.orderPizza) {
   restaurant.orderPizza('mushrooms', 'spinach', 'onions');
 }
 restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+//nullish values
+restaurant.numGuest = 0;
+const guest = restaurant.numGuest ?? 10;
+console.log(guest);
+
 /*
 ///////////////////////////////////////////////////////////////////
 //1.destucturing
@@ -215,3 +220,69 @@ console.log(i,j,k);
 
 const [p=1,q=1,r=1] = [8,9];
 console.log(p,q,r);*/
+
+//coding challenge 1
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
+const [player1, player2] = game.players;
+const [gk, ...fieldPlayers] = player1;
+const allPlayers = [...player1, ...player2];
+const players1Final = [...player1, 'Thiago', 'Coutinho', 'Perisic'];
+console.log(gk);
+console.log(fieldPlayers);
+console.log(allPlayers);
+console.log(players1Final);
+
+const {
+  odds: { team1, x: draw, team2 },
+} = game;
+console.log(team1, draw, team2);
+
+const printGoals = function (...names) {
+  console.log(...names);
+  console.log(`${names.length} goals were scored`);
+};
+printGoals(...game.scored);
+
+team1 < team2 && console.log('team 1 is likely to win');
+team2 < team1 && console.log('team 2 is likely to win');
