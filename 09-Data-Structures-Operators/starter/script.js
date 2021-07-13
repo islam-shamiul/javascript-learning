@@ -46,6 +46,32 @@ const restaurant = {
   },
 };
 
+//shor circuiting
+console.log('---OR----');
+console.log(3 || 'jonas');
+console.log('' || 'Jonas');
+console.log(true || 0);
+console.log(undefined || null);
+console.log(undefined || 0 || '' || 'hello' || 23 || null);
+
+restaurant.numGuest = 23;
+const guest1 = restaurant.numGuest ? restaurant.numGuest : 10;
+console.log(guest1);
+const guest2 = restaurant.numGuest || 10;
+console.log(guest2);
+
+console.log('---AND---');
+console.log(0 && 'Jonas');
+console.log(7 && 'Jonas');
+
+console.log('hello' && 23 && null && 'jonas');
+
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinach', 'onions');
+}
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+/*
+///////////////////////////////////////////////////////////////////
 //1.destucturing
 
 //rest, because on the left side of assignment oparator(array)
@@ -79,6 +105,9 @@ const x = [23, 5, 7];
 add(...x);
 
 restaurant.orderPizza('mushrooms', 'olives', 'spinach', 'onions');
+///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+//destucturing objects
 /*restaurant.orderDelivery({
   starterIndex:1,
   mainMenuIndex:0,
@@ -109,6 +138,7 @@ console.log(a,b);
 //nested object
 const{fri:{open,close}}=openingHours;
 console.log(open,close);
+//////////////////////////////////////////////////
 
 //spread array
 
