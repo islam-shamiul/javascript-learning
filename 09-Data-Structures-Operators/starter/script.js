@@ -1,10 +1,25 @@
 'use strict';
+const weekdays = ['thu', 'fri', 'sat', 'sun', 'mon', 'tue', 'wed'];
 
+const openingHours = {
+  [weekdays[0]]: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
 // Data needed for a later exercise
 
 // Data needed for first part of the section
 
-/*const restaurant = {
+const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
@@ -13,21 +28,9 @@
   order: function (starterIndex, mainMenuIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainMenuIndex]];
   },
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
-  orderDelivery: function ({
+
+  openingHours,
+  orderDelivery({
     starterIndex = 1,
     mainMenuIndex = 2,
     time = '22:00',
@@ -37,7 +40,7 @@
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainMenuIndex]} will be delivered to ${address} at ${time}`
     );
   },
-  orderPasta: function (inc1, inc2, inc3) {
+  orderPasta(inc1, inc2, inc3) {
     console.log(`here is your pasta with ${inc1}, ${inc2} and ${inc3}`);
   },
   orderPizza: function (mainIngredient, ...otherIngredient) {
@@ -46,6 +49,34 @@
   },
 };
 
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+for (const item of menu) console.log(item);
+
+//with out optional chaining
+
+if (restaurant.openingHours && restaurant.openingHours.mon)
+  console.log(restaurant.openingHours.mon.open);
+
+//optional chaining
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.mon?.open);
+
+const days = ['thu', 'fri', 'sat', 'sun', 'mon', 'tue', 'wed'];
+
+for (const day of days) {
+  //console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  const close = restaurant.openingHours[day]?.close ?? 'closed';
+  console.log(`On ${day} we open at ${open} and close at ${close} `);
+}
+//optional chaining for methods
+
+console.log(restaurant.order?.(0, 1) ?? "method doesn't exist");
+console.log(
+  restaurant.orderRisotto?.('chese', ['dough', 'das']) ?? "method doesn't exist"
+);
+
+/*
 //shor circuiting
 console.log('---OR----');
 console.log(3 || 'jonas');
@@ -74,6 +105,7 @@ restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
 restaurant.numGuest = 0;
 const guest = restaurant.numGuest ?? 10;
 console.log(guest);
+*/
 
 /*
 ///////////////////////////////////////////////////////////////////
@@ -263,7 +295,7 @@ const game = {
     team2: 6.5,
   },
 };
-
+/*
 const [player1, player2] = game.players;
 const [gk, ...fieldPlayers] = player1;
 const allPlayers = [...player1, ...player2];
@@ -286,3 +318,23 @@ printGoals(...game.scored);
 
 team1 < team2 && console.log('team 1 is likely to win');
 team2 < team1 && console.log('team 2 is likely to win');
+*/
+//1.
+const entries = Object.entries(game.scored);
+for (let [num, player] of entries) {
+  console.log(`Goal ${parseInt(num) + 1}:${player}`);
+}
+const odds = Object.values(game.odds);
+//2
+let avg = 0;
+for (let odd of odds) {
+  avg += odd;
+}
+avg /= odds.length;
+console.log(avg);
+
+//3
+for (const [team, odd] of Object.entries(game.odds)) {
+  const teamStr = team === 'x' ? `draw` : `victory ${game[team]}`;
+  console.log(`odd of ${teamStr} ${odd}`);
+}
