@@ -320,6 +320,9 @@ team1 < team2 && console.log('team 1 is likely to win');
 team2 < team1 && console.log('team 2 is likely to win');
 */
 //1.
+/*
+//2nd coding challenge
+
 const entries = Object.entries(game.scored);
 for (let [num, player] of entries) {
   console.log(`Goal ${parseInt(num) + 1}:${player}`);
@@ -337,4 +340,95 @@ console.log(avg);
 for (const [team, odd] of Object.entries(game.odds)) {
   const teamStr = team === 'x' ? `draw` : `victory ${game[team]}`;
   console.log(`odd of ${teamStr} ${odd}`);
+}*/
+
+// Map
+
+const rest2 = new Map();
+
+rest2
+  .set('name', 'Classico Italiano')
+  .set(1, 'italy')
+  .set(true, 'we are open')
+  .set(false, 'we are closed')
+  .set('open', 11)
+  .set('close', 23)
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic']);
+
+console.log(rest2.set(2, 'portugal'));
+
+console.log(rest2.get(true));
+const time = 8;
+
+console.log(rest2.get(time > rest2.get('open') && time < rest2.get('close')));
+
+console.log(rest2.has('categories'));
+rest2.delete(2);
+const key = [1, 2];
+rest2.set(key, 'test');
+
+console.log(rest2);
+console.log(rest2.size);
+console.log(rest2.get(key));
+
+// using arrar of arrays
+
+const question = new Map([
+  ['question', 'What is the best programming laguage?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Answare is currect'],
+  [false, 'Answare is wrong'],
+]);
+
+console.log(question);
+
+console.log(Object.entries(openingHours));
+
+const hoursMap = new Map(Object.entries(openingHours));
+console.log(hoursMap);
+
+for (const [key, value] of question) {
+  if (typeof key === 'number') {
+    console.log(`Answer ${key}:${value}`);
+  }
+}
+
+const answer = Number(prompt('your answer'));
+console.log(answer);
+
+console.log(question.get(question.get('correct') === answer));
+
+//convert Map() to Array
+
+console.log([...question]);
+
+const gameEvents = new Map([
+  [17, 'GOAL'],
+  [36, 'Substitution'],
+  [47, 'GOAL'],
+  [61, 'Substitution'],
+  [64, 'Yellow card'],
+  [69, 'Red Card'],
+  [70, 'Substitution'],
+  [72, 'Substitution'],
+  [76, 'GOAL'],
+  [80, 'GOAL'],
+  [92, 'Yellow card'],
+]);
+
+const events = new Set(gameEvents.values());
+console.log(events);
+
+gameEvents.delete(64);
+console.log(gameEvents);
+
+console.log(`An event happened, on
+average, every ${90 / gameEvents.size} minutes`);
+
+for (const [min, events] of gameEvents) {
+  const half = min <= 45 ? 'First' : 'Second';
+  console.log(`[${half} half] ${min} : ${events} `);
 }
