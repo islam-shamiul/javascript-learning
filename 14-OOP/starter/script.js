@@ -142,3 +142,90 @@ console.log(ford.speedUs);
 ford.speedUs = 70;
 console.log(ford.speed);
 */
+
+//inheritance using constructor
+
+/*const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+
+Student.prototype.intro = function () {
+  console.log(`My name is ${this.firstName} and i study ${this.course}`);
+};
+
+const mike = new Student('mike', 2020, 'CSE');
+
+mike.intro();
+mike.calcAge();
+console.dir(Student.prototype.constructor);
+console.log(mike.__proto__ === Student.prototype);
+console.log(Student.__proto__ === Person.prototype); //because student's protototype is person.prototype's object
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+*/
+
+//coading challenge 3
+
+/*
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+Car.prototype.acceleration = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+const EV = function (make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+};
+
+EV.prototype = Object.create(Car.prototype);
+EV.prototype.constructor = EV;
+
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+
+EV.prototype.acceleration = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.make} is going at ${this.speed} km/h with a charge of ${this.charge}`
+  );
+};
+
+const tesla = new EV('Tesla', 120, 23);
+console.log(tesla);
+console.dir(EV.prototype.constructor);
+console.log(tesla instanceof EV);
+console.log(tesla instanceof Car);
+
+tesla.acceleration();
+tesla.brake();
+tesla.chargeBattery(90);
+console.log(tesla);
+*/
