@@ -253,3 +253,112 @@ class PersonCl {
     console.log(this);
   }
 }
+
+class StudentCl extends PersonCl {
+  constructor(fullName, birthyear, course) {
+    super(fullName, birthyear);
+    this.course = course;
+  }
+  clacAge() {
+    console.log(
+      `My name is ${this.fullName} my age is ${2037 - this.birthyear}`
+    );
+  }
+  introduction() {
+    console.log(`My name is ${this.fullName} and i read in ${this.course}`);
+  }
+}
+
+const martha = new StudentCl('Martha Jones', 2012, 'CSE');
+
+martha.clacAge();
+martha.introduction();
+
+class Account {
+  //private Properties
+  #pin;
+  #movements = [];
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    //Protected Property
+    this.#pin = pin;
+    this.#movements = [];
+    this.local = navigator.language;
+    console.log(`Thanks for opening account,${owner}`);
+  }
+  getMovement() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+  //private methods
+  #approvLoan(val) {
+    return true;
+  }
+  requestLoan(val) {
+    if (this.#approvLoan(val)) {
+      this.withdraw(val);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Shamiul', 'TK', 1234);
+acc1.deposit(250);
+acc1.withdraw(222);
+console.log(acc1);
+console.log(acc1.getMovement());
+
+//coding challenge 4
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+  acceleration() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    return this;
+  }
+  brake() {
+    this.speed -= 5;
+    console.log(`this.make is going at ${this.speed}
+    `);
+  }
+}
+
+class EVCl extends CarCl {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+  acceleration() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} is going at ${this.speed} km/h with a charge of ${
+        this.#charge
+      }`
+    );
+    return this;
+  }
+}
+
+const rivian = new EVCl('Rivian', 120, 23);
+rivian.acceleration();
+
+rivian.chargeBattery(50).acceleration();
