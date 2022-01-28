@@ -229,3 +229,27 @@ tesla.brake();
 tesla.chargeBattery(90);
 console.log(tesla);
 */
+class PersonCl {
+  constructor(fullName, birthyear) {
+    this.fullName = fullName;
+    this.birthyear = birthyear;
+  }
+  //this will be added to the .prototype property of the class
+  clacAge() {
+    console.log(2037 - this.birthyear);
+  }
+  //set a  property that already exists
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name`);
+  }
+  get fullName() {
+    return this._fullName;
+  }
+
+  //Static method
+  static hey() {
+    console.log('Hey there');
+    console.log(this);
+  }
+}
