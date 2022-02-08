@@ -127,3 +127,47 @@ luftansa.buyPlane = function () {
 document
   .querySelector('.buy')
   .addEventListener('click', luftansa.buyPlane.bind(luftansa));
+
+//IEFE
+
+(function () {
+  console.log('This will run once');
+})();
+
+(() => console.log('This will also run once'))();
+
+//closure
+
+//example 1
+
+let f;
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+h();
+f();
+
+//example 2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups and each group has ${perGroup} passengers`);
+  }, wait * 1000);
+  console.log(`Will statrt boarding in ${wait} sec`);
+};
+
+boardPassengers(180, 3);
