@@ -88,34 +88,30 @@ const displayMovement = function (movements) {
   });
 };
 
-displayMovement(account1.movements);
-
 const displayBalance = function (movements) {
   const balance = movements.reduce((accu, mov) => accu + mov, 0);
 
   labelBalance.textContent = `${balance}€
   `;
 };
-displayBalance(account1.movements);
 
-const displaySummery = function (movements) {
-  const income = movements
+const displaySummery = function (acc) {
+  const income = acc.movements
     .filter(mov => mov > 0)
     .reduce((accu, inc) => accu + inc, 0);
   labelSumIn.textContent = `${income}€`;
 
-  const out = movements
+  const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((accu, out) => accu + out, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .reduce((accu, inter) => accu + inter, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-displaySummery(account1.movements);
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const user = 'Steven Thomas Williams';
@@ -131,6 +127,33 @@ const createUSerName = function (accs) {
 
 createUSerName(accounts);
 console.log(accounts);
+
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  //prevent from from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+
+  console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    //display UI and Welcome message
+    labelWelcome.textContent = `Welcome Back ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    console.log('LOGIN');
+    //clear fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    displayMovement(currentAccount.movements);
+    displayBalance(currentAccount.movements);
+    displaySummery(currentAccount);
+  }
+});
 
 /////////////////////////////////////////////////
 /*
