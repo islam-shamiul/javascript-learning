@@ -71,10 +71,50 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const displayMovement = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>
+      <div class="movements__value">${mov}</div>
+    </div>
+    `;
+    //console.log(html);
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovement(account1.movements);
+
+const displayBalance = function (movements) {
+  const balance = movements.reduce((accu, mov) => accu + mov, 0);
+
+  labelBalance.textContent = `${balance}€
+  `;
+};
+displayBalance(account1.movements);
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const user = 'Steven Thomas Williams';
+const createUSerName = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUSerName(accounts);
+console.log(accounts);
 
 /////////////////////////////////////////////////
-
+/*
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
 //slice
@@ -118,3 +158,55 @@ movements.forEach(function (mov, i) {
     console.log(`Movement ${i + 1} : You have withdrow ${Math.abs(mov)}`);
   }
 });
+*/
+
+//map-------------------------------------------------
+const euroToUsd = 1.1;
+const movementsUSD = movements.map(mov => mov * euroToUsd);
+console.log(movementsUSD);
+
+const movementsUSDfor = [];
+for (const mov of movements) {
+  movementsUSDfor.push(mov * euroToUsd);
+}
+console.log(movementsUSDfor);
+
+const movementsDescriptions = movements.map((mov, i) => {
+  return `Movement ${i + 1} : You have ${
+    mov > 0 ? 'Deposit' : 'Withdrow'
+  } ${Math.abs(mov)}`;
+});
+
+console.log(movementsDescriptions);
+
+//filter-------------------------------------------------
+const deposits = movements.filter(mov => mov > 0);
+console.log(deposits);
+
+//useing for of
+
+const depositsFor = [];
+for (const mov of movements) {
+  if (mov > 0) {
+    depositsFor.push(mov);
+  }
+}
+console.log(depositsFor);
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+//reduce-----------------------------------------------------
+
+const balance = movements.reduce((accu, mov) => accu + mov, 0);
+console.log(balance);
+
+let balanceFor = 0;
+
+for (const mov of movements) {
+  balanceFor += mov;
+}
+console.log(balanceFor);
+
+const max = movements.reduce((accu, mov) => (accu > mov ? accu : mov), 0);
+console.log(max);
