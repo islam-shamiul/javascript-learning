@@ -97,6 +97,25 @@ const displayBalance = function (movements) {
   `;
 };
 displayBalance(account1.movements);
+
+const displaySummery = function (movements) {
+  const income = movements
+    .filter(mov => mov > 0)
+    .reduce((accu, inc) => accu + inc, 0);
+  labelSumIn.textContent = `${income}€`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((accu, out) => accu + out, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .reduce((accu, inter) => accu + inter, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+displaySummery(account1.movements);
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const user = 'Steven Thomas Williams';
@@ -158,7 +177,7 @@ movements.forEach(function (mov, i) {
     console.log(`Movement ${i + 1} : You have withdrow ${Math.abs(mov)}`);
   }
 });
-*/
+
 
 //map-------------------------------------------------
 const euroToUsd = 1.1;
@@ -210,3 +229,4 @@ console.log(balanceFor);
 
 const max = movements.reduce((accu, mov) => (accu > mov ? accu : mov), 0);
 console.log(max);
+*/
