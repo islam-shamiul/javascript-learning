@@ -71,9 +71,11 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const displayMovement = function (movements) {
+const displayMovement = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <div class="movements__row">
@@ -178,6 +180,41 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = 'Log in to get started';
+  }
+});
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const loan = Number(inputLoanAmount.value);
+  console.log(loan);
+  if (loan > 0 && currentAccount.movements.some(mov => mov >= loan / 10)) {
+    currentAccount.movements.push(loan);
+    updateUi(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
+let sort = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovement(currentAccount.movements, !sort);
+  sort = !sort;
+});
+
 /////////////////////////////////////////////////
 /*
 let arr = ['a', 'b', 'c', 'd', 'e'];
@@ -276,3 +313,32 @@ console.log(balanceFor);
 const max = movements.reduce((accu, mov) => (accu > mov ? accu : mov), 0);
 console.log(max);
 */
+
+//array sorting
+//normal sorting
+console.log(movements.sort());
+//ascending sorting
+movements.sort((a, b) => {
+  if (a > b) {
+    return 1;
+  }
+  if (a < b) {
+    return -1;
+  }
+});
+
+console.log(movements);
+
+//decending order
+
+movements.sort((a, b) => {
+  if (a > b) {
+    return -1;
+  }
+  if (a < b) {
+    return 1;
+  }
+  console.log('decending');
+});
+
+console.log(movements);
