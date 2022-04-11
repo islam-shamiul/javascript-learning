@@ -36,7 +36,7 @@ document.addEventListener('keydown', function (e) {
 // console.log(document.head);
 // console.log(document.body);
 
-const header = document.querySelector('.header');
+/*const header = document.querySelector('.header');
 const allSelector = document.querySelectorAll('.section');
 console.log(allSelector); //returns NodeList
 
@@ -95,3 +95,28 @@ console.log(logo.getAttribute('src'));
 
 // data attributes
 console.log(logo.dataset.versionNumber);
+*/
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+//using event listener
+const alertH1 = function (e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+  // h1.removeEventListener('mouseenter', alertH1);
+};
+
+const h1 = document.querySelector('h1');
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+//useing on property
+
+// h1.onmouseenter = function (e) {
+//   alert('addEventListener: Great! You are reading the heading :D');
+// };
+
+//rgb(255,255,255)
